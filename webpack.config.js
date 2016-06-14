@@ -4,6 +4,8 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const OUT_PATH = path.resolve('./build');
+// Used with webpack-dev-server
+const PUBLIC_PATH = '/assets/';
 const IS_MIN = process.argv.indexOf('-p') >= 0;
 
 module.exports = [{
@@ -17,8 +19,10 @@ module.exports = [{
   },
   output: {
     path: OUT_PATH,
+    publicPath: PUBLIC_PATH,
     filename: '[name].' + (IS_MIN ? 'min.' : '') + 'js'
   },
+  devtool: process.env.DEV ? 'eval-source-map' : null,
   module: {
     loaders: [{
       test: /\.js$/,
@@ -39,10 +43,12 @@ module.exports = [{
   },
   output: {
     path: OUT_PATH,
+    publicPath: PUBLIC_PATH,
     // Dummy file name for the JS which webpack emits. ExtractTextPlugin is used to generate the
     // final styles.
     filename: '[name].' + (IS_MIN ? 'min.' : '') + 'css-entry'
   },
+  devtool: process.env.DEV ? 'eval-source-map' : null,
   module: {
     loaders: [{
       test: /\.scss$/,

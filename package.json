@@ -7,7 +7,8 @@
     "clean": "rm -fr build/*",
     "build": "mkdir -p build && webpack",
     "build:min": "mkdir -p build && webpack -p",
-    "dist": "npm run clean && npm run build && npm run build:min"
+    "dist": "npm run clean && npm run build && npm run build:min",
+    "dev": "npm run clean && DEV=1 webpack-dev-server --content-base demos --inline --hot"
   },
   "devDependencies": {
     "babel-loader": "^6.2.4",
@@ -21,7 +22,8 @@
     "raw-loader": "^0.5.1",
     "sass-loader": "^3.2.0",
     "style-loader": "^0.13.1",
-    "webpack": "^1.13.1"
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
   },
   "babel": {
     "presets": [
