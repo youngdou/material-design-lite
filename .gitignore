@@ -4,5 +4,7 @@ gulp-cache
 .DS_Store
 docs/out
 .publish
+/build
 /dist
 .drone.sec.yml
+packages/*/dist
