@@ -52,7 +52,7 @@ module.exports = [{
   module: {
     loaders: [{
       test: /\.scss$/,
-      loader: ExtractTextPlugin.extract('css!sass')
+      loader: ExtractTextPlugin.extract('css!postcss!sass')
     }]
   },
   plugins: [
@@ -60,5 +60,10 @@ module.exports = [{
   ],
   sassLoader: {
     includePaths: [path.resolve(__dirname, 'packages')]
+  },
+  postcss: function() {
+    return [
+      require('autoprefixer')
+    ];
   }
 }];
