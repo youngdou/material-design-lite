@@ -149,14 +149,7 @@
 }
 
 .md-checkbox--focused {
-  // HACK: This is a super-hack until we re-do the ripple.
-  > div[style*="pointer-events"] > div {
-    // 0.0588235 is the opacity of the foreground / background ripples.
-    $_ripple-color: rgba(black, 0.0588235 * 2);
-    opacity: 1 !important;
-    // Simulate layering foreground ripple on top of background ripple.
-    background-color: $_ripple-color !important;
-  }
+  outline: $md-checkbox-background-color auto 5px;
 }
 
 .md-checkbox__native-control:checked {

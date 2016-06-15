@@ -6,23 +6,42 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OUT_PATH = path.resolve('./build');
 // Used with webpack-dev-server
 const PUBLIC_PATH = '/assets/';
-const IS_MIN = process.argv.indexOf('-p') >= 0;
+const IS_DEV = process.env.MDL_ENV === 'development';
+const IS_PROD = process.env.MDL_ENV === 'production';
 
 module.exports = [{
-  name: 'js',
+  name: 'js-components',
   entry: {
-    'material-design-lite': path.resolve('./packages/material-design-lite/index.js'),
-    // We need to use arrays here - see https://github.com/webpack/webpack/issues/300
-    'mdl-auto-init': [path.resolve('./packages/mdl-auto-init/index.js')],
-    'mdl-base-component': [path.resolve('./packages/mdl-base-component/index.js')],
-    'mdl-checkbox': [path.resolve('./packages/mdl-checkbox/index.js')]
+    autoInit: [path.resolve('./packages/mdl-auto-init/index.js')],
+    BaseComponent: [path.resolve('./packages/mdl-base-component/index.js')],
+    Checkbox: [path.resolve('./packages/mdl-checkbox/index.js')]
   },
   output: {
     path: OUT_PATH,
     publicPath: PUBLIC_PATH,
-    filename: '[name].' + (IS_MIN ? 'min.' : '') + 'js'
+    filename: 'mdl.[name].' + (IS_PROD ? 'min.' : '') + 'js',
+    libraryTarget: 'umd',
+    library: ['mdl', '[name]']
   },
-  devtool: process.env.DEV ? 'eval-source-map' : null,
+  devtool: IS_DEV ? 'source-map' : null,
+  module: {
+    loaders: [{
+      test: /\.js$/,
+      exclude: /node_modules/,
+      loader: 'babel-loader'
+    }]
+  }
+}, {
+  name: 'js-all',
+  entry: path.resolve('./packages/material-design-lite/index.js'),
+  output: {
+    path: OUT_PATH,
+    publicPath: PUBLIC_PATH,
+    filename: 'material-design-lite.' + (IS_PROD ? 'min.' : '') + 'js',
+    libraryTarget: 'umd',
+    library: 'mdl'
+  },
+  devtool: IS_DEV ? 'source-map' : null,
   module: {
     loaders: [{
       test: /\.js$/,
@@ -46,9 +65,9 @@ module.exports = [{
     publicPath: PUBLIC_PATH,
     // Dummy file name for the JS which webpack emits. ExtractTextPlugin is used to generate the
     // final styles.
-    filename: '[name].' + (IS_MIN ? 'min.' : '') + 'css-entry'
+    filename: '[name].' + (IS_PROD ? 'min.' : '') + 'css-entry'
   },
-  devtool: process.env.DEV ? 'eval-source-map' : null,
+  devtool: IS_DEV ? 'eval-source-map' : null,
   module: {
     loaders: [{
       test: /\.scss$/,
@@ -56,7 +75,7 @@ module.exports = [{
     }]
   },
   plugins: [
-    new ExtractTextPlugin('[name].' + (IS_MIN ? 'min.' : '') + 'css')
+    new ExtractTextPlugin('[name].' + (IS_PROD ? 'min.' : '') + 'css')
   ],
   sassLoader: {
     includePaths: [path.resolve(__dirname, 'packages')]

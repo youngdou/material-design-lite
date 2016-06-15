@@ -10,28 +10,27 @@ export default class MaterialComponent {
   constructor(root) {
     this.refreshFrame_ = 0;
     this.root_ = root;
+    this.init_();
   }
 
   // eslint-disable-next-line valid-jsdoc
   /**
    * CSS classes used in this component.
    *
-   * @protected
    * @return {Object<string, string>} The CSS classes used in this component.
    */
-  static get cssClasses_() {
+  static get cssClasses() {
     // Empty in base class. Throw error if not correctly overriden.
-    throw new Error('Should have ROOT and JS keys with the style class names,' +
-      ' e.g. mdl-button and mdl-js-button.');
+    throw new Error('Should have at least ROOT key with the style class names,' +
+      ' e.g. mdl-button');
   }
 
   /**
    * Number constants used in this component.
    *
-   * @protected
    * @return {Object<string, number>} The numbers used in this component.
    */
-  static get numbers_() {
+  static get numbers() {
     // Empty in base class.
     return {};
   }
@@ -39,10 +38,9 @@ export default class MaterialComponent {
   /**
    * String constants used in this component.
    *
-   * @protected
    * @return {Object<string, string>} The strings used in this component.
    */
-  static get strings_() {
+  static get strings() {
     // Empty in base class.
     return {};
   }
@@ -53,16 +51,9 @@ export default class MaterialComponent {
    * @protected
    */
   init_() {
-    // Attach event listeners to the DOM.
-    this.addEventListeners();
-
-    // Refresh component.
-    this.refresh();
-
     // Add CSS marker that component upgrade is finished.
     // Useful, but beware flashes of unstyled content when relying on this.
-    this.root_.classList.add(
-        `${this.constructor.cssClasses_.ROOT}--is-upgraded`);
+    this.root_.dataset.mdlUpgraded = '';
   }
 
   /**
@@ -79,8 +70,7 @@ export default class MaterialComponent {
    * @export
    */
   addEventListeners() {
-    // Empty in base class. Throw error if not correctly overriden.
-    throw new Error('Should be implemented in components.');
+    // Empty in base class.
   }
 
   /**
@@ -89,8 +79,7 @@ export default class MaterialComponent {
    * @export
    */
   removeEventListeners() {
-    // Empty in base class. Throw error if not correctly overriden.
-    throw new Error('Should be implemented in components.');
+    // Empty in base class.
   }
 
   /**
@@ -116,9 +105,5 @@ export default class MaterialComponent {
    */
   kill() {
     this.removeEventListeners();
-
-    if (this.root_.parentNode) {
-      this.root_.parentNode.removeChild(this.root_);
-    }
   }
 }

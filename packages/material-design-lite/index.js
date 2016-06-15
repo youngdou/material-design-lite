@@ -1,9 +1,15 @@
-import MDLBaseComponent from 'mdl-base-component';
-import MDLCheckbox from 'mdl-checkbox';
+import BaseComponent from 'mdl-base-component';
+import Checkbox from 'mdl-checkbox';
 import autoInit from 'mdl-auto-init';
 
-export default {
-  MDLBaseComponent,
-  MDLCheckbox,
+console.info('Hello, MDL!!!');
+
+// Register all components
+autoInit.register('MDLCheckbox', Checkbox);
+
+// Export all components.
+export {
+  BaseComponent,
+  Checkbox,
   autoInit
 };
