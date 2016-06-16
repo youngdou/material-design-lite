@@ -26,7 +26,8 @@ class Checkbox extends Component {
     checkedInternal: false,
     indeterminateInternal: false
   }
-
+  classesToAdd = new ImmutableSet();
+  classesToRemove = new ImmutableSet();
   shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 
   render() {
@@ -106,14 +107,14 @@ class Checkbox extends Component {
 }
 MDLCheckbox.mixInto(Checkbox, {
   addClass(className) {
-    this.setState({
-      classes: this.state.classes.add(className)
-    });
+    this.setState(prevState => ({
+      classes: prevState.classes.add(className)
+    }));
   },
   removeClass(className) {
-    this.setState({
-      classes: this.state.classes.remove(className)
-    });
+    this.setState(prevState => ({
+      classes: prevState.classes.remove(className)
+    }));
   },
   addEventListener(type, listener) {
     if (this.refs.root) {
