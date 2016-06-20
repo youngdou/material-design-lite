@@ -1,0 +1,11 @@
+<h3>Home Component</h3>
+<p>Welcome to Angular Seed</p>
+<md-checkbox-wrapper>
+  <md-checkbox [(ngModel)]="isChecked"
+               [indeterminate]="isIndeterminate"
+               (change)="isIndeterminate = false"></md-checkbox>
+  <label md-checkbox-label [id]="labelId">The checkbox is {{status}}</label>
+</md-checkbox-wrapper>
+<div>
+  <button type="button" (click)="isIndeterminate = true">Make Indeterminate</button>
+</div>
