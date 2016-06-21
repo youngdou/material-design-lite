@@ -7,7 +7,7 @@ import {Home} from './components/home/home';
   selector: 'seed-app',
   providers: [],
   pipes: [],
-  directives: [ROUTER_DIRECTIVES],
+  directives: [ROUTER_DIRECTIVES, Home],
   templateUrl: 'app/seed-app.html',
 })
 @Routes([

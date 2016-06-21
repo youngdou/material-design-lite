@@ -63,6 +63,8 @@ export class CheckboxComponent implements AfterViewInit, OnDestroy {
   }
 
   handleChange(evt: Event) {
+    // Stop native checkbox change event from bubbling.
+    evt.stopPropagation();
     this._controlValueAccessorChangeFn((<any>evt.target).checked);
     this.change.emit(evt);
   }

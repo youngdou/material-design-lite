@@ -19,11 +19,17 @@ export class Home {
   public isChecked: boolean = false;
   public isIndeterminate: boolean = false;
   public labelId: string = 'my-checkbox-label';
+  public changeEventCount: number = 0;
 
   public get status(): string {
     if (this.isIndeterminate) {
       return 'indeterminate';
     }
     return this.isChecked ? 'checked' : 'unchecked';
+  }
+
+  handleChange() {
+    this.isIndeterminate = false;
+    this.changeEventCount++;
   }
 }

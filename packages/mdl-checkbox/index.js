@@ -3,9 +3,7 @@ import MDLCheckboxMixin from './mixin';
 import {cssClasses, strings, numbers} from './constants';
 
 /**
- * A Material Design Checkbox. NOTE: All static properties can be used by other frameworks to
- * implement their own versions of components. The component itself uses the same static properties
- * to do this in a vanilla way.
+ * A Material Design Checkbox.
  * @constructor
  * @final
  * @extends MDLBaseComponent
