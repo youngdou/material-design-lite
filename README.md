@@ -16,7 +16,7 @@ Run the development server (served out of `demos/`):
 ```
 cd /path/to/material-design-lite
 npm run dev
-open http://localhost:3000
+open http://localhost:8080
 ```
 
 Run the React example:
