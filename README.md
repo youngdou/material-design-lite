@@ -73,7 +73,7 @@ The ideal scenario would be to have one repository which colocates all packages 
 Lerna makes you put all subpackages in a top-level `packages/` folder. When you clone the repo for the first time, you run `lerna bootstrap`, which installs all subpackage dependencies and _symlinks_ any project cross-dependencies. This is what's used in this POC.
 
 * Every MDL component is its own package under the `packages` directory, independently versioned. All scripts and styles needed for the component are kept under that component's subdirectory (e.g., no more `_variables.scss` or `_mixins.scss` mega-files that are needed across all components).
-* The MDL library which encompasses all the components also is a subpackage, under `packages/material-design-lite`. 
+* The MDL library which encompasses all the components also is a subpackage, under `packages/material-design-lite`.
 * Lerna takes care of symlinking dependent sibling packages in development.
 * All tooling is done in one place, within the top-level repo.
 
@@ -152,8 +152,8 @@ In order to be able to successfully integrate into these frameworks/libraries, w
 In order to effectively solve this problem, this POC presents an architecture based a combination of the [functional mixin pattern](http://raganwald.com/2015/06/17/functional-mixins.html) (essentially Aspect-Oriented Programming, Javascript Style. Popularized by [angus croll](https://javascriptweblog.wordpress.com/2011/05/31/a-fresh-look-at-javascript-mixins/) and his work at Twitter on [FlightJS](https://github.com/flightjs/flight/blob/master/doc/mixin_api.md)) and the [adapter pattern](https://en.wikipedia.org/wiki/Adapter_pattern). It works as follows:
 
 * Each MDL Component provides a **mixin** (e.g. `packages/mdl-checkbox/mixin.js`), which assigns the implementation of its component to the given prototype. For example, the `mdl-checkbox` mixin provides mechanisms for applying the correct animation classes given the previous and current state of the checkbox.
-* Each mixin takes an argument representing an **adapter**. The adapter tells the component how to interface with its host platform. For example, the `mdl-checkbox` mixin takes an adapter that instructs it on how to add/remove classes, add/remove events, etc. 
-* Mixin code _always_ communicates with its host platform through its adapter. 
+* Each mixin takes an argument representing an **adapter**. The adapter tells the component how to interface with its host platform. For example, the `mdl-checkbox` mixin takes an adapter that instructs it on how to add/remove classes, add/remove events, etc.
+* Mixin code _always_ communicates with its host platform through its adapter.
 * Adapter methods are _always_ called with the target prototype as the receiver.
 * Every mixin exposes an **initialization** method which can be used at the proper place within the Framework/Library's component lifecycle to bootstrap the MDL portion of this component.
 
@@ -169,7 +169,7 @@ To see this pattern in action, compare the following 3 files, each which use mix
       // ...
     });
     ```
-      
+
 2. `examples/react/src/Checkbox.js` - A React checkbox component that wraps our checkbox. Initialization is done within `componentWillMount()`. Our components and its adapter make use of [immutable-js](https://facebook.github.io/immutable-js/) and [PureRenderMixin](https://facebook.github.io/react/docs/pure-render-mixin.html) efficiently implement MDLCheckbox functionality:
 
     ```javascript
@@ -204,7 +204,7 @@ const baseMixin = {
   addClass(className) {
     FrameworkDOMUtil.addClass(this.rootElement, className);
   },
-  
+
   removeClass(className) {
   	FrameworkDOMUtil.removeClass(this.rootElement, className);
   }
@@ -218,7 +218,7 @@ MDLThing.mixInto(FrameworkThing, Object.assign({}, baseMixin, {
     // ...
   }
 ));
-``` 
+```
 
 #### Alternative Considered - Adapter via Dependency Injection
 
@@ -243,16 +243,16 @@ class FrameworkThing {
   - No method clobbering. All methods are explicitly executed on the MDL component, not through mixing into the component class.
 - **Cons**
   - IMO a bit more unwieldy for clients than mixins. You must initialize the object yourself rather than leverage when the component itself gets constructed.
-  - Promotes a bad practice of possible side effects in the constructor (event binding, etc.). While this works for framework code, it's a bit invasive when it comes to integration with 3rd party frameworks/libraries.	
+  - Promotes a bad practice of possible side effects in the constructor (event binding, etc.). While this works for framework code, it's a bit invasive when it comes to integration with 3rd party frameworks/libraries.
   - No separation between vanilla component implementation and base component functionality. We'll have to write a bunch of our own adapters for our own components or have the components themselves explicitly be aware of adapters and provide default values for them, which seems less than ideal.
-  
+
 #### "What about theming?!"
 
 The approach [bootstrap](http://getbootstrap.com/getting-started/) has taken seems like it works really well: rather than having your base styles rely on theme variables, you separate out your css into two different entry points - one for the base css, and another for the theme css. Within your theme css you make components aware of any thematic elements. This is sort of sketched out in this POC in terms of having `*-theme.scss` files. Users making use of sass could include these directly and just override the necessary variables (we could also provide a helper library to do this). People using vanilla CSS could simply look at our theme files and determine what rules apply to what selectors and make their changes accordingly.
 
 #### "What about web components?"
 
-There's a lot of buzz about [web components](http://webcomponents.org/) and how they are the future of reusable UI components for the web platform. While libraries like [Polymer](https://www.polymer-project.org/1.0/) do an excellent job undertaking the monumental task of polyfilling web components, they are still a [ways away](https://hacks.mozilla.org/2015/06/the-state-of-web-components/) from being standardized on the web platform. The thing about web components is that they pretty much break backwards compatibility; either you buy into web components completely or not at all. You have to use shadow DOM, HTML Imports, the Web Components API etc, and every framework and browser you target has to support it. This is simply not reflective of today's reality. 
+There's a lot of buzz about [web components](http://webcomponents.org/) and how they are the future of reusable UI components for the web platform. While libraries like [Polymer](https://www.polymer-project.org/1.0/) do an excellent job undertaking the monumental task of polyfilling web components, they are still a [ways away](https://hacks.mozilla.org/2015/06/the-state-of-web-components/) from being standardized on the web platform. Fully-featured web components require shadow DOM, HTML Imports, the Web Components API etc, and every framework and browser you target has to support it as well. This is simply not reflective of today's reality.
 
 We're just as excited about web components and everyone else and look forward to seeing it fully standardized across the web. When that day comes, we can begin to have discussions about moving to that model. In the meantime, we must support the lowest common denominator which is still vanilla HTML, CSS, and Javascript.
 
