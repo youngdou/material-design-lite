@@ -4,7 +4,8 @@ const registry = Object.create(null);
  * Auto-initializes all mdl components on a page.
  */
 export default function mdlAutoInit() {
-  for (let node of document.querySelectorAll('[data-mdl-auto-init]')) {
+  const nodes = document.querySelectorAll('[data-mdl-auto-init]');
+  for (let i = 0, node; (node = nodes[i]); i++) {
     const ctorName = node.dataset.mdlAutoInit;
     if (!ctorName) {
       throw new Error('(mdl-auto-init) Constructor name must be given.');
