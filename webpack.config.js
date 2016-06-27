@@ -14,7 +14,8 @@ module.exports = [{
   entry: {
     autoInit: [path.resolve('./packages/mdl-auto-init/index.js')],
     BaseComponent: [path.resolve('./packages/mdl-base-component/index.js')],
-    Checkbox: [path.resolve('./packages/mdl-checkbox/index.js')]
+    Checkbox: [path.resolve('./packages/mdl-checkbox/index.js')],
+    Ripple: [path.resolve('./packages/mdl-ripple/index.js')]
   },
   output: {
     path: OUT_PATH,
@@ -58,7 +59,8 @@ module.exports = [{
         './packages/material-design-lite/material-design-lite-theme.scss'),
     'mdl-animation': path.resolve('./packages/mdl-animation/mdl-animation.scss'),
     'mdl-checkbox': path.resolve('./packages/mdl-checkbox/mdl-checkbox.scss'),
-    'mdl-checkbox-theme': path.resolve('./packages/mdl-checkbox/mdl-checkbox-theme.scss')
+    'mdl-checkbox-theme': path.resolve('./packages/mdl-checkbox/mdl-checkbox-theme.scss'),
+    'mdl-ripple': path.resolve('./packages/mdl-ripple/mdl-ripple.scss'),
   },
   output: {
     path: OUT_PATH,
