@@ -24,6 +24,8 @@ export default class MDLRipple {
    surface.addEventListener('mouseout', () => {
      component.cancelAnimations();
    });
+
+    return component;
   }
 
 

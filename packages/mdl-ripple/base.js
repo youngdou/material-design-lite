@@ -17,7 +17,6 @@ export const Class = {
   FOREGROUND_CIRCLE_ACTIVE: 'md-ripple__foreground-circle-active',
   BACKGROUND_ACTIVE: 'md-ripple__background-active',
   BACKGROUND_ACTIVE_FILL: 'md-ripple__background-active-fill',
-  BACKGROUND_ACTIVE_END: 'md-ripple__background-active-end'
 };
 
 
@@ -60,17 +59,18 @@ export class RippleComponent {
 
     /** @private {number} */
     this.maxRadius_;
+
+    this.isInit_ = false;
   }
 
 
-  /**
-   * @param {number} top
-   * @param {number} left
-   */
-  startTouchBeganAnimationAtPoint(top, left) {
+  maybeInit() {
+    if (this.isInit_) {
+      return;
+    }
+
     let surface = this.renderer_.get(Identifier.SURFACE);
     let root = this.renderer_.get(Identifier.ROOT);
-    let background = this.renderer_.get(Identifier.BACKGROUND);
 
     this.renderer_.setStyles(root, {
       visibility: 'visible'
@@ -86,6 +86,19 @@ export class RippleComponent {
       top: -((maxDim - this.boundingRect_.height) / 2.0) + 'px',
       left: -((maxDim - this.boundingRect_.width) / 2.0) + 'px',
     });
+
+    this.isInit_ = true;
+  }
+
+
+  /**
+   * @param {number} top
+   * @param {number} left
+   */
+  startTouchBeganAnimationAtPoint(top, left) {
+    this.maybeInit();
+
+    let background = this.renderer_.get(Identifier.BACKGROUND);
 
     this.renderer_.addClass(background, Class.BACKGROUND_ACTIVE);
 
@@ -160,21 +173,18 @@ export class RippleComponent {
    * @param {number} left
    */
   startTouchEndedAnimationAtPoint(top, left) {
+    this.maybeInit();
+
     let background = this.renderer_.get(Identifier.BACKGROUND);
     let foreground = this.renderer_.get(Identifier.FOREGROUND, this.fgIndex_);
     let fgCircle = this.renderer_.get(Identifier.FOREGROUND_CIRCLE, this.fgIndex_);
 
     this.renderer_.removeClass(background, Class.BACKGROUND_ACTIVE);
 
-    let bgAnim = new SequentialAnimation(background, this.renderer_);
-    let bgClass = [];
     if (this.isBounded) {
-      bgClass.push(Class.BACKGROUND_ACTIVE_FILL);
-    }
-    bgClass.push(Class.BACKGROUND_ACTIVE_END);
-    bgAnim.start(...bgClass);
+      let bgAnim = new SequentialAnimation(background, this.renderer_);
 
-    if (this.isBounded) {
+      bgAnim.start(Class.BACKGROUND_ACTIVE_FILL);
       // Center the ripple at the touch point.
       let origin = this.computeOriginTranslate_(top, left);
       this.renderer_.setStyles(foreground, {
@@ -186,9 +196,9 @@ export class RippleComponent {
 
       this.renderer_.addClass(foreground, Class.FOREGROUND_ACTIVE);
 
-      // Translate 2/3 of the way to the origin.
-      let finalTop = origin.top / 3;
-      let finalLeft = origin.left / 3;
+      // Translate 1/3 of the way to the origin.
+      let finalTop = origin.top * 2/ 3;
+      let finalLeft = origin.left * 2 / 3;
       this.renderer_.setStyles(foreground, {
         transform: `translate3d(${finalLeft}px, ${finalTop}px, 0)`
       });
@@ -202,6 +212,16 @@ export class RippleComponent {
       // 'opacity' lookup only forces style recalc, not layout.
       // https://gist.github.com/paulirish/5d52fb081b3570c81e3a
       let circleOpacity = parseFloat(this.renderer_.getComputedValue(fgCircle, 'opacity'), 10);
+
+      // Special case: when touch end is called programmatically (without touch
+      // start) for unbounded, we set an initial starting point for the ripple.
+      if (circleOpacity == 0) {
+        circleOpacity = 1.0;
+        this.renderer_.setStyles(fgCircle, {
+          opacity: circleOpacity,
+          transform: 'scale(.5)'
+        });
+      }
 
       // Hack to get the current transform value for the radius, without parsing the complicated
       // computed style.
