@@ -1,0 +1,31 @@
+:root {
+  --mdl-animation-linear-out-slow-in-timing-function: cubic-bezier(0.0, 0.0, 0.2, 0.1);
+  --mdl-animation-fast-out-slow-in-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --mdl-animation-fast-out-linear-in-timing-function: cubic-bezier(0.4, 0.0, 1, 1);
+
+  --mdl-animation-linear-out-slow-in: {
+    animation-timing-function: var(--mdl-animation-linear-out-slow-in-timing-function);
+  }
+
+  --mdl-animation-fast-out-slow-in: {
+    animation-timing-function: var(--mdl-animation-fast-out-slow-in-timing-function);
+  }
+
+  --mdl-animation-fast-out-linear-in: {
+    animation-timing-function: var(--mdl-animation-fast-out-linear-in-timing-function);
+  }
+}
+
+.mdl-animation {
+  &-linear-out-slow-in {
+    @apply --mdl-animation-linear-out-slow-in;
+  }
+
+  &-fast-out-slow-in {
+    @apply --mdl-animation-fast-out-slow-in;
+  }
+
+  &-fast-out-linear-in {
+    @apply --mdl-animation-fast-out-linear-in;
+  }
+}

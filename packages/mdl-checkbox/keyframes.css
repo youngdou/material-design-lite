@@ -1,4 +1,5 @@
-@import './variables';
+@import 'mdl-animation';
+@import './properties.css';
 
 @keyframes md-checkbox-fade-in-background {
   0% {
@@ -22,11 +23,11 @@
 
 @keyframes md-checkbox-unchecked-checked-checkmark-path {
   0%, 50% {
-    stroke-dashoffset: $_md-checkbox-mark-path-length;
+    stroke-dashoffset: var(--_md-checkbox-mark-path-length);
   }
 
   50% {
-    @include mdl-animation-linear-out-slow-in;
+    @apply --mdl-animation-linear-out-slow-in;
   }
 
   100% {
@@ -55,13 +56,13 @@
   }
 
   to {
-    stroke-dashoffset: $_md-checkbox-mark-path-length * -1;
+    stroke-dashoffset: calc(var(--_md-checkbox-mark-path-length) * -1);
   }
 }
 
 @keyframes md-checkbox-checked-indeterminate-checkmark {
   from {
-    @include mdl-animation-linear-out-slow-in;
+    @apply --mdl-animation-linear-out-slow-in;
     opacity: 1;
     transform: rotate(0deg);
   }
@@ -74,7 +75,7 @@
 
 @keyframes md-checkbox-indeterminate-checked-checkmark {
   from {
-    animation-timing-function: $_md-checkbox-indeterminate-checked-easing-function;
+    animation-timing-function: var(--_md-checkbox-indeterminate-checked-easing-function);
     opacity: 0;
     transform: rotate(45deg);
   }
@@ -87,7 +88,7 @@
 
 @keyframes md-checkbox-checked-indeterminate-mixedmark {
   from {
-    @include mdl-animation-linear-out-slow-in;
+    @apply --mdl-animation-linear-out-slow-in;
     opacity: 0;
     transform: rotate(-45deg);
   }
@@ -100,7 +101,7 @@
 
 @keyframes md-checkbox-indeterminate-checked-mixedmark {
   from {
-    animation-timing-function: $_md-checkbox-indeterminate-checked-easing-function;
+    animation-timing-function: var(--_md-checkbox-indeterminate-checked-easing-function);
     opacity: 1;
     transform: rotate(0deg);
   }

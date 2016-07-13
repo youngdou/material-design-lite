@@ -3,6 +3,8 @@
   "description": "The canonical material design implementation for the web platform",
   "version": "1.0.0",
   "license": "MIT",
+  "main": "./index.js",
+  "style": "./index.css",
   "dependencies": {
     "mdl-animation": "^1.0.0",
     "mdl-auto-init": "^1.0.0",

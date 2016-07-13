@@ -1,0 +1,251 @@
+@import 'mdl-animation';
+@import './properties.css';
+@import './keyframes.css';
+
+.md-checkbox-wrapper {
+  display: inline-block;
+
+  & .md-checkbox {
+    margin: auto;
+    margin-right: var(--md-checkbox-item-spacing);
+    order: 0;
+
+    @nest [dir="rtl"] & {
+      margin-left: var(--md-checkbox-item-spacing);
+      margin-right: auto;
+    }
+  }
+}
+
+.md-checkbox-wrapper__layout {
+  align-items: baseline;
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.md-checkbox-wrapper--align-end {
+  & .md-checkbox {
+    order: 1;
+    margin-left: var(--md-checkbox-item-spacing);
+    margin-right: auto;
+
+    @nest [dir="rtl"] & {
+      margin: {
+        left: auto;
+        right: var(--md-checkbox-item-spacing);
+      }
+    }
+  }
+}
+
+.md-checkbox {
+  cursor: pointer;
+  display: inline-block;
+  height: var(--md-checkbox-size);
+  line-height: 0;
+  position: relative;
+  vertical-align: bottom;
+  white-space: nowrap;
+  width: var(--md-checkbox-size);
+}
+
+.md-checkbox__frame {
+  @apply --md-checkbox-outer-box;
+
+  background-color: transparent;
+  border: var(--md-checkbox-border-width) solid var(--md-checkbox-border-color);
+  transition: border-color var(--md-checkbox-transition-duration)
+    var(--mdl-animation-linear-out-slow-in-timing-function);
+  will-change: border-color;
+}
+
+.md-checkbox__background {
+  @apply --md-checkbox-outer-box;
+
+  align-items: center;
+  background-color: var(--md-checkbox-background-color);
+  opacity: 0;
+  display: inline-flex;
+  justify-content: center;
+  transition: background-color var(--md-checkbox-transition-duration)
+    var(--mdl-animation-linear-out-slow-in-timing-function);
+  will-change: background-color, opacity;
+}
+
+.md-checkbox__native-control {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+
+  opacity: 0;
+  cursor: inherit;
+}
+
+.md-checkbox__checkmark {
+  @apply --md-checkbox-cover-element;
+  @apply --md-checkbox-mark;
+
+  fill: var(--md-checkbox-mark-color);
+  width: 100%;
+}
+
+.md-checkbox__checkmark__path {
+  /*
+    !important is needed here because a stroke must be set as an attribute on the SVG in order
+    for line animation to work properly.
+  */
+  stroke: var(--md-checkbox-mark-color) !important;
+  stroke-dashoffset: var(--_md-checkbox-mark-path-length);
+  stroke-dasharray: var(--_md-checkbox-mark-path-length);
+  stroke-width: var(--md-checkbox-mark-stroke-size);
+}
+
+.md-checkbox__mixedmark {
+  @apply --md-checkbox-mark;
+
+  background-color: var(--md-checkbox-mark-color);
+  /* See: https://github.com/MoOx/reduce-css-calc/issues/12 */
+  height: var(--md-checkbox-mixedmark-size);
+  opacity: 0;
+  transform: scaleX(0) rotate(0deg);
+}
+
+.md-checkbox--focused {
+  outline: var(--md-checkbox-background-color) auto 5px;
+}
+
+.md-checkbox__native-control:checked {
+  & ~ .md-checkbox__background {
+    opacity: 1;
+
+    & .md-checkbox__checkmark {
+      opacity: 1;
+    }
+
+    & .md-checkbox__checkmark__path {
+      stroke-dashoffset: 0;
+    }
+
+    & .md-checkbox__mixedmark {
+      transform: scaleX(1) rotate(-45deg);
+    }
+  }
+}
+
+.md-checkbox__native-control:indeterminate {
+  & ~ .md-checkbox__background {
+    opacity: 1;
+
+    & .md-checkbox__checkmark {
+      opacity: 0;
+      transform: rotate(45deg);
+    }
+
+    & .md-checkbox__checkmark__path {
+      stroke-dashoffset: 0;
+    }
+
+    & .md-checkbox__mixedmark {
+      opacity: 1;
+      transform: scaleX(1) rotate(0deg);
+    }
+  }
+}
+
+.md-checkbox__native-control:disabled {
+  cursor: default;
+}
+
+.md-checkbox__native-control:disabled:checked,
+.md-checkbox__native-control:disabled:indeterminate {
+  & ~ .md-checkbox__background {
+    background-color: var(--md-checkbox-disabled-color);
+  }
+}
+
+.md-checkbox__native-control:disabled:not(:checked) {
+  & ~ .md-checkbox__frame {
+    border-color: var(--md-checkbox-disabled-color);
+  }
+}
+
+.md-checkbox--anim-unchecked-checked {
+  & .md-checkbox__background {
+    animation: calc(var(--md-checkbox-transition-duration) * 2) linear 0s
+      md-checkbox-fade-in-background;
+  }
+
+  & .md-checkbox__checkmark__path {
+    // Instead of delaying the animation, we simply multiply its length by 2 and begin the
+    // animation at 50% in order to prevent a flash of styles applied to a checked checkmark
+    // as the background is fading in before the animation begins.
+    animation: calc(var(--md-checkbox-transition-duration) * 2) linear 0s
+      md-checkbox-unchecked-checked-checkmark-path;
+  }
+}
+
+.md-checkbox--anim-unchecked-indeterminate {
+  & .md-checkbox__background {
+    animation:
+      calc(var(--md-checkbox-transition-duration) * 2) linear 0s md-checkbox-fade-in-background;
+  }
+
+  & .md-checkbox__mixedmark {
+    animation:
+      var(--md-checkbox-transition-duration) linear 0s
+      md-checkbox-unchecked-indeterminate-mixedmark;
+  }
+}
+
+.md-checkbox--anim-checked-unchecked {
+  & .md-checkbox__background {
+    animation: calc(var(--md-checkbox-transition-duration) * 2) linear 0s
+      md-checkbox-fade-out-background;
+  }
+
+  & .md-checkbox__checkmark__path {
+    animation: var(--md-checkbox-transition-duration) linear 0s
+      md-checkbox-checked-unchecked-checkmark-path;
+  }
+}
+
+.md-checkbox--anim-checked-indeterminate {
+  & .md-checkbox__checkmark {
+    animation: var(--md-checkbox-transition-duration) linear 0s
+      md-checkbox-checked-indeterminate-checkmark;
+  }
+
+  & .md-checkbox__mixedmark {
+    animation: var(--md-checkbox-transition-duration) linear 0s
+      md-checkbox-checked-indeterminate-mixedmark;
+  }
+}
+
+.md-checkbox--anim-indeterminate-checked {
+  & .md-checkbox__checkmark {
+    animation: var(--md-checkbox-indeterminate-change-duration) linear 0s
+      md-checkbox-indeterminate-checked-checkmark;
+  }
+
+  & .md-checkbox__mixedmark {
+    animation: var(--md-checkbox-indeterminate-change-duration) linear 0s
+      md-checkbox-indeterminate-checked-mixedmark;
+  }
+}
+
+.md-checkbox--anim-indeterminate-unchecked {
+  & .md-checkbox__background {
+    animation: var(--md-checkbox-transition-duration * 2) linear 0s
+      md-checkbox-fade-out-background;
+  }
+
+  & .md-checkbox__mixedmark {
+    animation: calc(var(--md-checkbox-indeterminate-change-duration) * 0.6) linear 0s
+      md-checkbox-indeterminate-unchecked-mixedmark;
+  }
+}

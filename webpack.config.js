@@ -1,7 +1,8 @@
 'use strict';
 
-const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
 
 const OUT_PATH = path.resolve('./build');
 // Used with webpack-dev-server
@@ -53,14 +54,10 @@ module.exports = [{
 }, {
   name: 'css',
   entry: {
-    'material-design-lite': path.resolve(
-        './packages/material-design-lite/material-design-lite.scss'),
-    'material-design-lite-theme': path.resolve(
-        './packages/material-design-lite/material-design-lite-theme.scss'),
-    'mdl-animation': path.resolve('./packages/mdl-animation/mdl-animation.scss'),
-    'mdl-checkbox': path.resolve('./packages/mdl-checkbox/mdl-checkbox.scss'),
-    'mdl-checkbox-theme': path.resolve('./packages/mdl-checkbox/mdl-checkbox-theme.scss'),
-    'mdl-ripple': path.resolve('./packages/mdl-ripple/mdl-ripple.scss'),
+    'material-design-lite': path.resolve('./packages/material-design-lite/index.css'),
+    'mdl-animation': path.resolve('./packages/mdl-animation/index.css'),
+    'mdl-checkbox': path.resolve('./packages/mdl-checkbox/index.css'),
+    'mdl-ripple': path.resolve('./packages/mdl-ripple/index.css')
   },
   output: {
     path: OUT_PATH,
@@ -73,21 +70,25 @@ module.exports = [{
   devtool: IS_DEV ? 'source-map' : null,
   module: {
     loaders: [{
-      test: /\.scss$/,
+      test: /\.css$/,
       loader: IS_DEV ?
-          'style!css?sourceMap!postcss!sass?sourceMap' :
-          ExtractTextPlugin.extract('css!postcss!sass')
+          'style!css?sourceMap!postcss' :
+          ExtractTextPlugin.extract('css!postcss')
     }]
   },
   plugins: [
     new ExtractTextPlugin('[name].' + (IS_PROD ? 'min.' : '') + 'css')
   ],
-  sassLoader: {
-    includePaths: [path.resolve(__dirname, 'packages')]
-  },
   postcss: function() {
     return [
-      require('autoprefixer')
+      require('postcss-import')({
+        addDependencyTo: webpack
+      }),
+      require('postcss-cssnext')({
+        browsers: 'last 2 versions, Firefox ESR, not ie < 11'
+      }),
+      require('postcss-discard-comments')(),
+      require('postcss-math')
     ];
   }
 }];

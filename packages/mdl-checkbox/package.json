@@ -2,6 +2,8 @@
   "name": "mdl-checkbox",
   "version": "1.0.0",
   "license": "MIT",
+  "main": "./index.js",
+  "style": "./index.css",
   "dependencies": {
     "mdl-animation": "^1.0.0",
     "mdl-base-component": "^1.0.0"
