@@ -181,9 +181,9 @@
   }
 
   & .md-checkbox__checkmark__path {
-    // Instead of delaying the animation, we simply multiply its length by 2 and begin the
-    // animation at 50% in order to prevent a flash of styles applied to a checked checkmark
-    // as the background is fading in before the animation begins.
+    /* Instead of delaying the animation, we simply multiply its length by 2 and begin the
+    *  animation at 50% in order to prevent a flash of styles applied to a checked checkmark
+    *  as the background is fading in before the animation begins. */
     animation: calc(var(--md-checkbox-transition-duration) * 2) linear 0s
       md-checkbox-unchecked-checked-checkmark-path;
   }

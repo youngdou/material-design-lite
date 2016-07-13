@@ -65,8 +65,8 @@
 
 .md-ripple__background-active {
   transition: opacity 600ms linear;
-  // In order for the fill class's duration to be taken into account, the target
-  // opacity value must be different between the two classes.
+  /* In order for the fill class's duration to be taken into account, the target
+   opacity value must be different between the two classes. */
   opacity: 0.99999;
 }
 
