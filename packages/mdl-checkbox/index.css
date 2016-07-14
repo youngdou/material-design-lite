@@ -100,8 +100,8 @@
     for line animation to work properly.
   */
   stroke: var(--md-checkbox-mark-color) !important;
-  stroke-dashoffset: var(--_md-checkbox-mark-path-length);
-  stroke-dasharray: var(--_md-checkbox-mark-path-length);
+  stroke-dashoffset: var(--md-checkbox-mark-path-length);
+  stroke-dasharray: var(--md-checkbox-mark-path-length);
   stroke-width: var(--md-checkbox-mark-stroke-size);
 }
 

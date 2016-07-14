@@ -22,12 +22,12 @@
 }
 
 @keyframes md-checkbox-unchecked-checked-checkmark-path {
-  0%, 50% {
-    stroke-dashoffset: var(--_md-checkbox-mark-path-length);
+  0%, 50% { 
+    stroke-dashoffset: var(--md-checkbox-mark-path-length);
   }
 
   50% {
-    @apply --mdl-animation-linear-out-slow-in;
+    @apply mdl-animation-linear-out-slow-in;
   }
 
   100% {
@@ -51,18 +51,18 @@
 
 @keyframes md-checkbox-checked-unchecked-checkmark-path {
   from {
-    @include mdl-animation-fast-out-linear-in;
+    @apply mdl-animation-fast-out-linear-in;
     stroke-dashoffset: 0;
   }
 
   to {
-    stroke-dashoffset: calc(var(--_md-checkbox-mark-path-length) * -1);
+    stroke-dashoffset: calc(var(--md-checkbox-mark-path-length) * -1);
   }
 }
 
 @keyframes md-checkbox-checked-indeterminate-checkmark {
   from {
-    @apply --mdl-animation-linear-out-slow-in;
+    @apply mdl-animation-linear-out-slow-in;
     opacity: 1;
     transform: rotate(0deg);
   }
@@ -75,7 +75,7 @@
 
 @keyframes md-checkbox-indeterminate-checked-checkmark {
   from {
-    animation-timing-function: var(--_md-checkbox-indeterminate-checked-easing-function);
+    animation-timing-function: var(--md-checkbox-indeterminate-checked-easing-function);
     opacity: 0;
     transform: rotate(45deg);
   }
@@ -88,7 +88,7 @@
 
 @keyframes md-checkbox-checked-indeterminate-mixedmark {
   from {
-    @apply --mdl-animation-linear-out-slow-in;
+    @apply mdl-animation-linear-out-slow-in;
     opacity: 0;
     transform: rotate(-45deg);
   }
@@ -101,7 +101,7 @@
 
 @keyframes md-checkbox-indeterminate-checked-mixedmark {
   from {
-    animation-timing-function: var(--_md-checkbox-indeterminate-checked-easing-function);
+    animation-timing-function: var(--md-checkbox-indeterminate-checked-easing-function);
     opacity: 1;
     transform: rotate(0deg);
   }

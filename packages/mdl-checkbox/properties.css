@@ -20,8 +20,8 @@
   --md-checkbox-indeterminate-change-duration: 500ms;
   --md-checkbox-item-spacing: 4px;
   /* Manual calculation done on SVG */
-  --_md-checkbox-mark-path-length: 22.910259;
-  --_md-checkbox-indeterminate-checked-easing-function: cubic-bezier(0.14, 0, 0, 1);
+  --md-checkbox-mark-path-length: 22.910259;
+  --md-checkbox-indeterminate-checked-easing-function: cubic-bezier(0.14, 0, 0, 1);
 
   --md-checkbox-cover-element: {
     bottom: 0;
