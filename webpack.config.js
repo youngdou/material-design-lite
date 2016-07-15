@@ -85,10 +85,13 @@ module.exports = [{
         addDependencyTo: webpack
       }),
       require('postcss-cssnext')({
-        browsers: 'last 2 versions, Firefox ESR, not ie < 11'
+        browsers: 'last 2 versions, Firefox ESR, not ie < 11',
+        features: {
+          pseudoClassAnyLink: false
+        }
       }),
       require('postcss-discard-comments')(),
-      require('postcss-math')
+      require('postcss-reporter')
     ];
   }
 }];

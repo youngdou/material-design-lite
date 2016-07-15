@@ -1,4 +1,4 @@
-@import 'mdl-animation';
+@import '../mdl-animation/index.css';
 @import './properties.css';
 @import './keyframes.css';
 

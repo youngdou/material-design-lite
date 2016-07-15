@@ -13,8 +13,8 @@
 
   /* Internal properties. */
   --md-checkbox-size: 18px;
-  --md-checkbox-mark-stroke-size: calc(2/15 * var(--md-checkbox-size));
-  --md-checkbox-mixedmark-size: resolve(floor(var(--md-checkbox-mark-stroke-size)));
+  --md-checkbox-mark-stroke-size: 2.39994;
+  --md-checkbox-mixedmark-size: 2;
   --md-checkbox-border-width: 2px;
   --md-checkbox-transition-duration: 90ms;
   --md-checkbox-indeterminate-change-duration: 500ms;

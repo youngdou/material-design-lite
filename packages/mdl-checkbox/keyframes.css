@@ -1,4 +1,4 @@
-@import 'mdl-animation';
+@import '../mdl-animation/index.css';
 @import './properties.css';
 
 @keyframes md-checkbox-fade-in-background {
@@ -27,7 +27,7 @@
   }
 
   50% {
-    @apply mdl-animation-linear-out-slow-in;
+    @apply --mdl-animation-linear-out-slow-in;
   }
 
   100% {
@@ -51,7 +51,7 @@
 
 @keyframes md-checkbox-checked-unchecked-checkmark-path {
   from {
-    @apply mdl-animation-fast-out-linear-in;
+    @apply --mdl-animation-fast-out-linear-in;
     stroke-dashoffset: 0;
   }
 
@@ -62,7 +62,7 @@
 
 @keyframes md-checkbox-checked-indeterminate-checkmark {
   from {
-    @apply mdl-animation-linear-out-slow-in;
+    @apply --mdl-animation-linear-out-slow-in;
     opacity: 1;
     transform: rotate(0deg);
   }
@@ -88,7 +88,7 @@
 
 @keyframes md-checkbox-checked-indeterminate-mixedmark {
   from {
-    @apply mdl-animation-linear-out-slow-in;
+    @apply --mdl-animation-linear-out-slow-in;
     opacity: 0;
     transform: rotate(-45deg);
   }
