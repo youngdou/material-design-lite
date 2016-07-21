@@ -1,0 +1,35 @@
+/**
+ * Copyright 2016 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+$mdl-shadow-key-umbra-opacity: .2;
+$mdl-shadow-key-penumbra-opacity: .14;
+$mdl-shadow-ambient-shadow-opacity: .12;
+
+@mixin mdl-focus-shadow() {
+  box-shadow: 0 0 8px rgba(0, 0, 0, .18), 0 8px 16px rgba(0, 0, 0, .36);
+}
+
+@mixin mdl-shadow-4dp() {
+  box-shadow:
+    0 2px 4px -1px rgba(0, 0, 0, $mdl-shadow-key-umbra-opacity),
+    0 4px 5px 0 rgba(0, 0, 0, $mdl-shadow-key-penumbra-opacity),
+    0 1px 10px 0 rgba(0, 0, 0, $mdl-shadow-ambient-shadow-opacity);
+}
+
+:root {
+  --mdl-accent-color: rgb(255, 64, 129);
+  --mdl-button-active-shade: rgba(0, 0, 0, .12);
+}

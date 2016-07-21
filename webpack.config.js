@@ -58,6 +58,7 @@ module.exports = [{
         './packages/material-design-lite/material-design-lite.scss'),
     'mdl-animation': path.resolve('./packages/mdl-animation/mdl-animation.scss'),
     'mdl-checkbox': path.resolve('./packages/mdl-checkbox/mdl-checkbox.scss'),
+    'mdl-fab': path.resolve('./packages/mdl-fab/index.scss'),
     'mdl-ripple': path.resolve('./packages/mdl-ripple/mdl-ripple.scss')
   },
   output: {
@@ -85,6 +86,7 @@ module.exports = [{
   },
   postcss: function() {
     return [
+      require('postcss-custom-properties'),
       require('autoprefixer')
     ];
   }
