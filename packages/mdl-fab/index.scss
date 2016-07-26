@@ -1,0 +1,73 @@
+/**
+ * Copyright 2016 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@import "variables";
+
+.mdl-fab {
+  box-sizing: border-box;
+  display: inline-block;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--mdl-accent-color);
+  color: white;
+  text-align: center;
+  box-shadow: 0 1px 1.5px 0 rgba(0, 0, 0, .12), 0 1px 1px 0 rgba(0, 0, 0, .24);
+  cursor: pointer;
+  overflow: hidden;
+  user-select: none;
+
+  &__icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  &--plain {
+    background-color: #fafafa;
+    color: black;
+  }
+
+  &--mini {
+    width: 40px;
+    height: 40px;
+  }
+
+  &:active {
+    @include mdl-shadow-4dp;
+    outline: transparent;
+  }
+
+  &:focus:not(:active) {
+    @include mdl-focus-shadow;
+    outline: transparent;
+
+    .mdl-fab__icon {
+      background-color: var(--mdl-button-active-shade);
+    }
+  }
+
+  /* stylelint-disable selector-no-type */
+  &:disabled,
+  fieldset:disabled & {
+    cursor: default;
+  }
+}
