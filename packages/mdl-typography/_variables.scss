@@ -1,0 +1,123 @@
+/**
+ * Copyright 2016 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+$mdl-typography-font-family: Roboto, sans-serif;
+
+$mdl-typography-font-weight-values: (
+  thin: 100,
+  light: 300,
+  regular: 400,
+  medium: 500,
+  bold: 700,
+  black: 900
+);
+
+// TODO(sgomes): Figure out what to do about desktop font sizes.
+// TODO(sgomes): Figure out what to do about i18n and i18n font sizes.
+$mdl-typography-styles: (
+  display4: (
+    font-size: 112px,
+    line-height: 112px,
+    font-weight: map-get($mdl-typography-font-weight-values, light),
+    letter-spacing: -.04em,
+    margin: -16px 0 56px -.085em
+  ),
+  display3: (
+    font-size: 56px,
+    line-height: 56px,
+    font-weight: map-get($mdl-typography-font-weight-values, regular),
+    letter-spacing: -.02em,
+    margin: -8px 0 64px -.07em
+  ),
+  display2: (
+    font-size: 45px,
+    line-height: 48px,
+    font-weight: map-get($mdl-typography-font-weight-values, regular),
+    letter-spacing: normal,
+    margin: -8px 0 64px -.07em
+  ),
+  display1: (
+    font-size: 34px,
+    line-height: 40px,
+    font-weight: map-get($mdl-typography-font-weight-values, regular),
+    letter-spacing: normal,
+    margin: -8px 0 64px -.07em
+  ),
+  headline: (
+    font-size: 24px,
+    line-height: 32px,
+    font-weight: map-get($mdl-typography-font-weight-values, regular),
+    letter-spacing: normal,
+    margin: -8px 0 16px -.06em
+  ),
+  title: (
+    font-size: 20px,
+    line-height: 32px,
+    font-weight: map-get($mdl-typography-font-weight-values, medium),
+    letter-spacing: .02em,
+    margin: -8px 0 16px -.05em
+  ),
+  subheading2: (
+    font-size: 16px,
+    line-height: 28px,
+    font-weight: map-get($mdl-typography-font-weight-values, regular),
+    letter-spacing: .04em,
+    margin: -8px 0 16px -.06em
+  ),
+  subheading1: (
+    font-size: 15px,
+    line-height: 24px,
+    font-weight: map-get($mdl-typography-font-weight-values, regular),
+    letter-spacing: .04em,
+    margin: -5px 0 13px -.06em
+  ),
+  body2: (
+    font-size: 14px,
+    line-height: 24px,
+    font-weight: map-get($mdl-typography-font-weight-values, medium),
+    letter-spacing: .04em,
+    margin: -4px 0 12px 0
+  ),
+  body1: (
+    font-size: 14px,
+    line-height: 20px,
+    font-weight: map-get($mdl-typography-font-weight-values, regular),
+    letter-spacing: .04em,
+    margin: -4px 0 12px 0
+  ),
+  caption: (
+    font-size: 12px,
+    line-height: 20px,
+    font-weight: map-get($mdl-typography-font-weight-values, regular),
+    letter-spacing: .08em,
+    margin: -8px 0 16px -.04em
+  )
+);
+
+$mdl-typography-colors-dark: (
+  primary: rgba(black, .87),
+  secondary: rgba(black, .54),
+  hint: rgba(black, .38),
+  disabled: rgba(black, .38),
+  icon: rgba(black, .38)
+);
+
+$mdl-typography-colors-light: (
+  primary: white,
+  secondary: rgba(white, .7),
+  hint: rgba(white, .5),
+  disabled: rgba(white, .5),
+  icon: rgba(white, .5)
+);

@@ -1,0 +1,7 @@
+{
+  "name": "mdl-typography",
+  "version": "1.0.0",
+  "dependencies": {
+    "mdl-base-component": "^1.0.0"
+  }
+}
